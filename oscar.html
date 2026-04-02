@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oscar Tafur Diaz — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f0e8;
+    --rust: #c94f2c;
+    --steel: #2e4a6e;
+    --cream: #ece6d9;
+    --muted: #7a7166;
+    --accent: #e8b84b;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.6;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--steel);
+    padding: 60px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 92% 100%, 0 100%);
+  }
+
+  .hero-left::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    right: -4px;
+    width: 180px;
+    height: 180px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    opacity: 0.25;
+  }
+
+  .logo-mark {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 6px;
+    color: var(--accent);
+    opacity: 0.8;
+  }
+
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 8vw, 110px);
+    line-height: 0.92;
+    color: var(--paper);
+    position: relative;
+  }
+
+  .hero-name em {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    color: var(--accent);
+    display: block;
+  }
+
+  .hero-tagline {
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0.6;
+    margin-top: 20px;
+  }
+
+  .hero-right {
+    padding: 60px 56px 60px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  .badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    animation: fadeUp 0.8s ease both 0.3s;
+  }
+
+  .badge {
+    border: 1.5px solid var(--ink);
+    padding: 6px 14px;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-radius: 2px;
+  }
+
+  .badge.fill {
+    background: var(--rust);
+    border-color: var(--rust);
+    color: white;
+  }
+
+  .hero-intro {
+    font-size: 18px;
+    line-height: 1.75;
+    color: #3a3530;
+    max-width: 420px;
+    animation: fadeUp 0.8s ease both 0.5s;
+  }
+
+  .gpa-block {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    animation: fadeUp 0.8s ease both 0.7s;
+  }
+
+  .gpa-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    color: var(--rust);
+    line-height: 1;
+  }
+
+  .gpa-label {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .gpa-label span:first-child {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .gpa-label span:last-child {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--steel);
+  }
+
+  /* ── SECTION ── */
+  section {
+    padding: 100px 8vw;
+    position: relative;
+  }
+
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: var(--rust);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--rust);
+    opacity: 0.5;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1.1;
+    margin-bottom: 60px;
+  }
+
+  /* ── SKILLS GRID ── */
+  .skills-section {
+    background: var(--cream);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2px;
+  }
+
+  .skill-card {
+    background: var(--paper);
+    padding: 36px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, background 0.3s ease;
+    cursor: default;
+  }
+
+  .skill-card:hover {
+    background: var(--steel);
+    transform: translateY(-4px);
+  }
+
+  .skill-card:hover .skill-name,
+  .skill-card:hover .skill-desc {
+    color: var(--paper);
+  }
+
+  .skill-card:hover .skill-icon {
+    color: var(--accent);
+  }
+
+  .skill-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+    display: block;
+    transition: color 0.3s ease;
+  }
+
+  .skill-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+  }
+
+  .skill-desc {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--muted);
+    transition: color 0.3s ease;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-section { background: var(--ink); color: var(--paper); }
+  .projects-section .section-title { color: var(--paper); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .project-card {
+    border: 1px solid rgba(245,240,232,0.12);
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--accent);
+    transition: height 0.4s ease;
+  }
+
+  .project-card:hover::before { height: 100%; }
+  .project-card:hover { border-color: rgba(232,184,75,0.3); }
+
+  .project-type {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .project-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+
+  .project-desc {
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: rgba(245,240,232,0.55);
+  }
+
+  /* ── ABOUT ── */
+  .about-section {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-left { position: sticky; top: 40px; }
+
+  .about-accent-box {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--steel);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .about-accent-box::after {
+    content: 'OTD';
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 120px;
+    color: rgba(232,184,75,0.15);
+    letter-spacing: -4px;
+  }
+
+  .about-accent-box .initials-label {
+    position: absolute;
+    bottom: 20px;
+    right: 24px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    opacity: 0.7;
+  }
+
+  .about-right p {
+    font-size: 17px;
+    line-height: 1.85;
+    color: #3a3530;
+    margin-bottom: 28px;
+  }
+
+  .about-right p strong {
+    color: var(--steel);
+    font-weight: 500;
+  }
+
+  .stats-row {
+    display: flex;
+    gap: 32px;
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid var(--cream);
+  }
+
+  .stat { display: flex; flex-direction: column; gap: 4px; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    color: var(--rust);
+    line-height: 1;
+  }
+  .stat-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    background: var(--rust);
+    color: var(--paper);
+    text-align: center;
+    padding: 100px 8vw;
+  }
+
+  .contact-section .section-title { color: white; font-size: clamp(40px, 6vw, 80px); }
+
+  .contact-email {
+    display: inline-block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(20px, 3vw, 34px);
+    letter-spacing: 4px;
+    color: var(--accent);
+    margin-top: 20px;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 4px;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .contact-email:hover { opacity: 0.7; }
+
+  .contact-note {
+    margin-top: 16px;
+    font-size: 13px;
+    opacity: 0.65;
+    letter-spacing: 1px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: var(--muted);
+    text-align: center;
+    padding: 32px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    backdrop-filter: blur(12px);
+    background: rgba(245,240,232,0.85);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .nav-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 4px;
+    color: var(--steel);
+  }
+
+  .nav-links { display: flex; gap: 32px; }
+
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .nav-links a:hover { color: var(--rust); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left { animation: fadeUp 0.9s ease both 0.1s; }
+  .hero-right { animation: fadeUp 0.9s ease both 0.25s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { gap: 16px; }
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    .hero-left { clip-path: none; padding: 100px 32px 60px; }
+    .hero-right { padding: 40px 32px 80px; }
+    .about-section { grid-template-columns: 1fr; }
+    .about-left { position: static; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-name">Oscar Tafur Diaz</div>
+  <div class="nav-links">
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="logo-mark">Portfolio · 2025</div>
+    <div>
+      <div class="hero-name">
+        Oscar<br>
+        Tafur<br>
+        <em>Diaz</em>
+      </div>
+      <p class="hero-tagline">2D & 3D Modelling · Design · Engineering</p>
+    </div>
+    <div style="opacity:0.4; font-size:12px; color:var(--cream); letter-spacing:1px;">
+      University of Alberta · Student
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="badge-row">
+      <span class="badge fill">3D Modelling</span>
+      <span class="badge fill">2D Design</span>
+      <span class="badge">CAD</span>
+      <span class="badge">Rendering</span>
+      <span class="badge">Animation</span>
+    </div>
+
+    <p class="hero-intro">
+      A dedicated design & modelling student at the <strong>University of Alberta</strong>, 
+      crafting precise, compelling work across both 2D and 3D disciplines. 
+      Passionate about translating ideas into visual reality.
+    </p>
+
+    <div class="gpa-block">
+      <div class="gpa-number">3.68</div>
+      <div class="gpa-label">
+        <span>Cumulative GPA</span>
+        <span>University of Alberta</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <div class="section-label">Expertise</div>
+  <h2 class="section-title">What I Work With</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <span class="skill-icon">🧊</span>
+      <div class="skill-name">3D Modelling</div>
+      <p class="skill-desc">Creating detailed three-dimensional models for product design, visualization, and animation using industry-standard tools.</p>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">✏️</span>
+      <div class="skill-name">2D Design</div>
+      <p class="skill-desc">Technical drafting, illustration, and graphic design — from precision CAD drawings to expressive visual compositions.</p>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🎨</span>
+      <div class="skill-name">Rendering & Texturing</div>
+      <p class="skill-desc">Applying realistic materials, lighting, and rendering techniques to bring models to life with photorealistic fidelity.</p>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">📐</span>
+      <div class="skill-name">CAD & Technical Drawing</div>
+      <p class="skill-desc">Producing accurate, dimensioned technical drawings and models for engineering and design workflows.</p>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🔁</span>
+      <div class="skill-name">Animation & Motion</div>
+      <p class="skill-desc">Bringing 3D scenes and objects to life through keyframe animation, rigging, and motion path design.</p>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">💡</span>
+      <div class="skill-name">Concept Development</div>
+      <p class="skill-desc">Iterating from rough sketches to refined concepts, blending creativity with technical feasibility throughout the design process.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects-section" id="projects">
+  <div class="section-label" style="color:var(--accent);">Work</div>
+  <h2 class="section-title">Featured Projects</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-type">3D Modelling</div>
+      <div class="project-name">Product Visualization</div>
+      <p class="project-desc">Detailed 3D model of a consumer product with photorealistic texturing, lighting setup, and turntable render animation.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-type">2D Design</div>
+      <div class="project-name">Technical Illustration</div>
+      <p class="project-desc">Precision technical drawings with exploded views and annotated diagrams, produced to engineering standards.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-type">CAD & Modelling</div>
+      <div class="project-name">Architectural Study</div>
+      <p class="project-desc">Modelled and rendered an architectural form study exploring spatial relationships and material contrast in 3D space.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-type">2D + 3D</div>
+      <div class="project-name">Design Systems Project</div>
+      <p class="project-desc">Academic project combining 2D layout design with 3D component modelling, delivering a cohesive design system package.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-section">
+    <div class="about-left">
+      <div class="about-accent-box">
+        <span class="initials-label">O.T.D.</span>
+      </div>
+    </div>
+    <div class="about-right">
+      <div class="section-label">About</div>
+      <h2 class="section-title" style="margin-bottom:32px;">The Person Behind the Models</h2>
+      <p>
+        Hi, I'm <strong>Oscar Tafur Diaz</strong> — a student at the <strong>University of Alberta</strong> 
+        with a passion for design that lives at the intersection of precision and creativity. 
+        I work across both 2D and 3D modelling disciplines, bringing a holistic perspective to every project.
+      </p>
+      <p>
+        With a <strong>GPA of 3.68</strong>, I've consistently pushed myself academically while building 
+        hands-on skills in modelling, rendering, and design. I believe great design is both beautiful and purposeful.
+      </p>
+      <p>
+        Whether I'm building intricate 3D geometries or laying out a clean 2D technical drawing, 
+        my goal is always the same: communicate ideas with clarity, precision, and visual impact.
+      </p>
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-num">3.68</span>
+          <span class="stat-label">GPA</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">2+</span>
+          <span class="stat-label">Disciplines</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">U of A</span>
+          <span class="stat-label">University</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="section-label" style="justify-content:center; color:rgba(255,255,255,0.5);">Get In Touch</div>
+  <h2 class="section-title">Let's Work<br><em style="font-family:'DM Serif Display',serif; font-style:italic;">Together</em></h2>
+  <p class="contact-note">Open to collaborations, internships & design opportunities</p>
+  <br><br>
+  <a href="mailto:oscar.tafurdiaz@ualberta.ca" class="contact-email">oscar.tafurdiaz@ualberta.ca</a>
+  <p class="contact-note" style="margin-top:24px;">University of Alberta · Edmonton, AB</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  ©️ 2025 Oscar Tafur Diaz · All Rights Reserved
+</footer>
+
+</body>
+</html>
